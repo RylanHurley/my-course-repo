@@ -5,20 +5,12 @@ from . import views
 
 app_name = 'onlinecourse'
 urlpatterns = [
-    # route is a string contains a URL pattern
-    # view refers to the view function
-    # name the URL
-    path(route='', view=views.CourseListView.as_view(), name='index'),
-    path('registration/', views.registration_request, name='registration'),
-    path('login/', views.login_request, name='login'),
-    path('logout/', views.logout_request, name='logout'),
-    # ex: /onlinecourse/5/
-    path('<int:pk>/', views.CourseDetailView.as_view(), name='course_details'),
-    # ex: /enroll/5/
-    path('<int:course_id>/enroll/', views.enroll, name='enroll'),
-
-    # <HINT> Create a route for submit view
-
-    # <HINT> Create a route for show_exam_result view
-
- ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', views.CourseListView.as_view(), name='index'),  # Home page showing course list
+    path('registration/', views.registration_request, name='registration'),  # User registration page
+    path('login/', views.login_request, name='login'),  # User login page
+    path('logout/', views.logout_request, name='logout'),  # User logout page
+    path('<int:pk>/', views.CourseDetailView.as_view(), name='course_details'),  # Course detail page
+    path('<int:course_id>/enroll/', views.enroll, name='enroll'),  # Enroll in a course
+    path('<int:course_id>/submit/', views.submit, name='submit'),  # Submit exam for a course
+    path('<int:course_id>/show_exam_result/<int:submission_id>/', views.show_exam_result, name='show_exam_result'),  # Show exam result for a course
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
